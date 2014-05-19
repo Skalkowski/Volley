@@ -21,8 +21,8 @@ public class LoginRequest extends StringRequest {
 	private static final String EMAIL_TAKEN = "Email has already been taken";
 
 	private static final String PARAM_TOKEN = "authenticity_token";
-	private static final String PARAM_EMAIL = "user[email]";
-	private static final String PARAM_PASSWORD = "user[password]";
+	private static final String PARAM_EMAIL = "email";
+	private static final String PARAM_PASSWORD = "password";
 
 
 
@@ -57,18 +57,19 @@ public class LoginRequest extends StringRequest {
 		try {
 			parsed = new String(response.data,
 					HttpHeaderParser.parseCharset(response.headers));
-			if (parsed.contains(SIGNED_UP)) {
+			if (parsed.contains("Logged in!")) {
 				parsed = SIGNED_UP;
 			} else if (parsed.contains(EMAIL_TAKEN)) {
 				parsed = EMAIL_TAKEN;
 			} else {
-				Log.d(TAG, parsed);
+				Log.i(TAG, parsed);
 				parsed = "IMPLEMENT RESPONSE in "
 						+ LoginRequest.class.getSimpleName();
 
 			}
 		} catch (UnsupportedEncodingException e) {
 			parsed = new String(response.data);
+			Log.i("logowanie", "error");
 		}
 		return Response.success(parsed,
 				HttpHeaderParser.parseCacheHeaders(response));

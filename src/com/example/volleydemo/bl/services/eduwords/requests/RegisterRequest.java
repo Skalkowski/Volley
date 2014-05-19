@@ -56,6 +56,7 @@ public class RegisterRequest extends StringRequest {
 		try {
 			parsed = new String(response.data,
 					HttpHeaderParser.parseCharset(response.headers));
+			Log.i("dupas", parsed);
 			if (parsed.contains(SIGNED_UP)) {
 				parsed = SIGNED_UP;
 			} else if (parsed.contains(EMAIL_TAKEN)) {
