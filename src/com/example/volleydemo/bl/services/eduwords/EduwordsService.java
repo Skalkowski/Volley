@@ -35,10 +35,10 @@ public class EduwordsService extends NetworkedService {
 	
 	public void login(final Response.Listener<String> responseListener,
 			final Response.ErrorListener errorListener, String token,
-			String email, String password, String commit) {
+			String email, String password) {
 		LoginRequest loginRequest = new LoginRequest(
 				Request.Method.POST, USERS_URL, responseListener,
-				errorListener, token, email, password, commit);
+				errorListener, token, email, password);
 		volleyRequestQueue.add(loginRequest);
 	}
 }

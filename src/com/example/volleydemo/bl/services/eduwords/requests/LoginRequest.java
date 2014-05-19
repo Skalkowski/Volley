@@ -23,22 +23,22 @@ public class LoginRequest extends StringRequest {
 	private static final String PARAM_TOKEN = "authenticity_token";
 	private static final String PARAM_EMAIL = "user[email]";
 	private static final String PARAM_PASSWORD = "user[password]";
-	private static final String PARAM_COMMIT = "Log in";
+
 
 
 	private String token;
 	private String email;
 	private String password;
-	private String commit;
+
 
 	public LoginRequest(int method, String url, Listener<String> listener,
 			ErrorListener errorListener, String token, String email,
-			String password, String commit) {
+			String password) {
 		super(method, url, listener, errorListener);
 		this.token = token;
 		this.email = email;
 		this.password = password;
-		this.commit = commit;
+		
 
 	}
 
@@ -48,7 +48,6 @@ public class LoginRequest extends StringRequest {
 		params.put(PARAM_TOKEN, token);
 		params.put(PARAM_EMAIL, email);
 		params.put(PARAM_PASSWORD, password);
-		params.put(PARAM_COMMIT, commit);
 		return params;
 	}
 

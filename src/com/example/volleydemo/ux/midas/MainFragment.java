@@ -43,7 +43,7 @@ public class MainFragment extends ServiceFragment implements ErrorListener {
 			Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
 			serviceProvider.eduwordsService().login(registerListener,
 					MainFragment.this, response,
-					"dupa@dupa.pl", "dupa", "Log in");
+					"dupa@dupa.pl", "dupa");
 		}
 
 //		@Override
