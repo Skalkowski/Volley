@@ -13,7 +13,7 @@ import com.example.volleydemo.bl.services.NetworkedService;
 import com.example.volleydemo.bl.services.eduwords.requests.LoginRequest;
 import com.example.volleydemo.bl.services.eduwords.requests.RegisterRequest;
 import com.example.volleydemo.bl.services.eduwords.requests.SessionRequest;
-
+import com.example.volleydemo.bl.services.eduwords.requests.WordsRequest;
 
 public class EduwordsService extends NetworkedService {
 	private static final String TAG = EduwordsService.class.getSimpleName();
@@ -26,31 +26,32 @@ public class EduwordsService extends NetworkedService {
 		super();
 	}
 
-	public void obtainSession(final Response.Listener<String> responseListener,
-			final Response.ErrorListener errorListener) {
+	public void obtainSession(Response.Listener<String> responseListener,
+			Response.ErrorListener errorListener) {
 		SessionRequest request = new SessionRequest(Request.Method.GET,
 				MAIN_URL, responseListener, errorListener);
 		volleyRequestQueue.add(request);
 	}
+	
 
-	public void register(final Response.Listener<String> responseListener,
-			final Response.ErrorListener errorListener, String token,
-			String email, String password, String repeatedPassword) {
+	public void register(Response.Listener<String> responseListener,
+			Response.ErrorListener errorListener, String token, String email,
+			String password, String repeatedPassword) {
 		RegisterRequest registerRequest = new RegisterRequest(
 				Request.Method.POST, USERS_URL, responseListener,
 				errorListener, token, email, password, repeatedPassword);
 		volleyRequestQueue.add(registerRequest);
 	}
-	
-	public void login(final Response.Listener<String> responseListener,
-			final Response.ErrorListener errorListener, String token,
-			String email, String password) {
-		LoginRequest loginRequest = new LoginRequest(
-				Request.Method.POST, SESSION_URL, responseListener,
-				errorListener, token, email, password);
+
+	public void login(Response.Listener<String> responseListener,
+			Response.ErrorListener errorListener, String token, String email,
+			String password) {
+		LoginRequest loginRequest = new LoginRequest(Request.Method.POST,
+				SESSION_URL, responseListener, errorListener, token, email,
+				password);
 		volleyRequestQueue.add(loginRequest);
 	}
-	
+
 	public void getJson(){
 		JsonObjectRequest jr = new JsonObjectRequest(Request.Method.GET, WORDS_URL,
 				null, new Response.Listener<JSONObject>() {
@@ -90,5 +91,4 @@ public class EduwordsService extends NetworkedService {
 			e.printStackTrace();
 		}
 	}
-	
 }

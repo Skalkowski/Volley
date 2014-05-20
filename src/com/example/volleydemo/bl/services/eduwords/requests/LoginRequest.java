@@ -1,6 +1,7 @@
 package com.example.volleydemo.bl.services.eduwords.requests;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,19 +18,15 @@ import com.android.volley.toolbox.StringRequest;
 public class LoginRequest extends StringRequest {
 	private static final String TAG = LoginRequest.class.getSimpleName();
 
-	private static final String SIGNED_UP = "Signed up!";
-	private static final String EMAIL_TAKEN = "Email has already been taken";
+	private static final String LOGGED_IN = "Logged in!";
 
 	private static final String PARAM_TOKEN = "authenticity_token";
 	private static final String PARAM_EMAIL = "email";
 	private static final String PARAM_PASSWORD = "password";
 
-
-
 	private String token;
 	private String email;
 	private String password;
-
 
 	public LoginRequest(int method, String url, Listener<String> listener,
 			ErrorListener errorListener, String token, String email,
@@ -38,8 +35,11 @@ public class LoginRequest extends StringRequest {
 		this.token = token;
 		this.email = email;
 		this.password = password;
-		
+	}
 
+	@Override
+	public Map<String, String> getHeaders() throws AuthFailureError {
+		return Collections.emptyMap();
 	}
 
 	@Override
@@ -57,19 +57,15 @@ public class LoginRequest extends StringRequest {
 		try {
 			parsed = new String(response.data,
 					HttpHeaderParser.parseCharset(response.headers));
-			if (parsed.contains("Logged in!")) {
-				parsed = SIGNED_UP;
-			} else if (parsed.contains(EMAIL_TAKEN)) {
-				parsed = EMAIL_TAKEN;
+			if (parsed.contains(LOGGED_IN)) {
+				parsed = LOGGED_IN;
 			} else {
 				Log.i(TAG, parsed);
 				parsed = "IMPLEMENT RESPONSE in "
 						+ LoginRequest.class.getSimpleName();
-
 			}
 		} catch (UnsupportedEncodingException e) {
 			parsed = new String(response.data);
-			Log.i("logowanie", "error");
 		}
 		return Response.success(parsed,
 				HttpHeaderParser.parseCacheHeaders(response));
